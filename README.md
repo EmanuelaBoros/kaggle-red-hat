@@ -44,3 +44,27 @@ The script expects:
 9. Write a timestamped Kaggle submission file.
 
 ## Features
+The script processes activity and people columns such as:
+
+```text
+date_x, activity_category, char_1_x, ..., char_10_x,
+date_y, char_1_y, ..., char_38
+```
+
+After preprocessing, categorical values are replaced by integer ids, booleans are mapped to integers, and dates are expanded into numeric date parts.
+
+## Model
+
+The active model is XGBoost:
+
+```python
+objective = "binary:logistic"
+eval_metric = "auc"
+max_depth = 3
+subsample = 0.7
+colsample_bytree = 0.7
+num_boost_round = 500
+early_stopping_rounds = 50
+```
+
+The training set is split into train/validation subsets using `train_test_split`, and validation performance is reported with ROC AUC.
