@@ -11,3 +11,36 @@ The repository contains a single starter script, `simple_starter.py`, which read
 ├── simple_starter.py
 └── README.md
 ```
+
+## Expected Data Layout
+
+Kaggle data is not included in this repository. Download the competition files and place them in a local `data/` folder:
+
+```text
+data/
+├── act_train.csv
+├── act_test.csv
+└── people.csv
+```
+
+The script expects:
+
+- `act_train.csv` with `activity_id`, `people_id`, activity/date features, and `outcome`.
+- `act_test.csv` with the same activity features but without `outcome`.
+- `people.csv` with person-level features joined by `people_id`.
+
+## Workflow
+
+`simple_starter.py` runs the full pipeline:
+
+1. Read train/test activity files and people metadata.
+2. Merge activity rows with people rows on `people_id`.
+3. Encode boolean columns as `0`/`1`.
+4. Encode categorical object columns with integer mappings.
+5. Convert date columns into `year`, `month`, and weekday-style `day` features.
+6. Drop unused columns.
+7. Train an XGBoost model with `binary:logistic`.
+8. Evaluate validation AUC.
+9. Write a timestamped Kaggle submission file.
+
+## Features
