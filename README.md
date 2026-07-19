@@ -68,3 +68,49 @@ early_stopping_rounds = 50
 ```
 
 The training set is split into train/validation subsets using `train_test_split`, and validation performance is reported with ROC AUC.
+
+## Requirements
+
+This is legacy code and uses older APIs:
+
+- `np.str`, now deprecated.
+- `sklearn.cross_validation.train_test_split`, now replaced by `sklearn.model_selection.train_test_split`.
+- Older XGBoost parameters such as `silent`.
+
+Original-style dependencies:
+
+```bash
+pip install numpy pandas matplotlib scikit-learn xgboost
+```
+
+For modern Python environments, update the deprecated NumPy and scikit-learn calls before running.
+
+## Usage
+
+From the repository root:
+
+```bash
+mkdir -p data
+# place act_train.csv, act_test.csv, and people.csv in data/
+python simple_starter.py
+```
+
+The script writes a file named like:
+
+```text
+submission_<score>_<YYYY-MM-DD-HH-MM>.csv
+```
+
+with the Kaggle submission columns:
+
+```text
+activity_id,outcome
+```
+
+## Notes
+
+- The code is an experiment snapshot, not a packaged library.
+- Kaggle data is not included and must be downloaded separately.
+- The categorical encoding is fitted independently on train/test columns in the current script; for stricter reproducibility, use a shared mapping fitted on the combined values.
+- Several exploratory date-distribution and correlation analyses are included as commented code at the bottom of the script.
+
